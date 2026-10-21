@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ilm Academy</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f5f8ff;color:#172b4d}
+header{background:#123c70;color:white;padding:22px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+header h2{margin:0}
+nav a{color:white;text-decoration:none;margin:8px}
+.hero{text-align:center;padding:65px 20px;background:linear-gradient(135deg,#dceaff,#fff)}
+.hero h1{font-size:clamp(32px,6vw,52px);margin:0 0 15px}
+.hero p{color:#53657e;line-height:1.7}
+button,select{padding:12px;border:1px solid #d5deeb;border-radius:8px;font-size:15px}
+button{background:#1764db;color:white;border:0;cursor:pointer}
+main{max-width:1000px;margin:auto;padding:30px 18px}
+h2{text-align:center}
+.classes,.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:14px}
+.card,.feature{background:white;padding:22px 14px;border-radius:14px;border:1px solid #e1e8f2;text-align:center}
+.card{cursor:pointer;color:#17365f}
+.card.active{border:2px solid #1764db;background:#eaf1ff}
+.card h3{font-size:23px}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:25px 0}
+label{display:grid;gap:8px;font-weight:bold}
+select{background:white;width:100%;color:#172b4d}
+.result{background:white;border-radius:12px;padding:20px;line-height:1.8;overflow-wrap:anywhere}
+.feature{line-height:1.6}
+.note{font-size:13px;color:#64748b;line-height:1.7}
+footer{text-align:center;background:#123c70;color:white;padding:25px}
+</style>
+</head>
+<body>
+<header>
+<h2>🎓 ILM ACADEMY</h2>
+<nav><a href="#courses">Courses</a><a href="#lectures">Lectures</a></nav>
+</header>
+<section class="hero">
+<h1>Learn Today, Lead Tomorrow</h1>
+<p>Online education for classes 9, 10, 11 and 12 across Pakistan.</p>
+<button onclick="document.getElementById('courses').scrollIntoView({behavior:'smooth'})">Explore Courses ↓</button>
+</section>
+<main>
+<section id="courses">
+<h2>Choose Your Class</h2>
+<div class="classes">
+<button class="card active" data-class="9"><h3>Class 9</h3>Matric Part I</button>
+<button class="card" data-class="10"><h3>Class 10</h3>Matric Part II</button>
+<button class="card" data-class="11"><h3>Class 11</h3>1st Year</button>
+<button class="card" data-class="12"><h3>Class 12</h3>2nd Year</button>
+</div>
+<div class="filters">
+<label>Education Board
+<select id="board">
+<option>BISE Kohat</option>
+<option>Other KPK Boards</option>
+<option>Punjab Boards</option>
+<option>Federal Board (FBISE)</option>
+<option>Sindh Boards</option>
+<option>Balochistan Board</option>
+<option>Other Pakistan Boards</option>
+</select></label>
+<label>Subject
+<select id="subject">
+<option>Computer Science</option><option>Physics</option>
+<option>Chemistry</option><option>Biology</option>
+<option>Mathematics</option><option>English</option>
+<option>Urdu</option><option>Islamiat</option>
+<option>Pakistan Studies</option>
+</select></label>
+</div>
+<div class="result" id="selection">Class 9 • BISE Kohat • Computer Science<br>Select your course to get started.</div>
+</section>
+<section id="lectures">
+<h2>Learning Resources</h2>
+<div class="features">
+<div class="feature"><h3>▶ Video Lectures</h3><p>Watch lessons in Urdu and English.</p></div>
+<div class="feature"><h3>📚 Chapter Notes</h3><p>Organized notes and study materials.</p></div>
+<div class="feature"><h3>✓ Online Tests</h3><p>Practice MCQs and exam questions.</p></div>
+</div>
+<p class="note">Note: Real lecture videos, PDF notes and tests must be added and checked against each board's syllabus before students can use them.</p>
+</section>
+</main>
+<footer>© <span id="year"></span> Ilm Academy • Education for Everyone</footer>
+<script>
+let currentClass="9";
+const cards=document.querySelectorAll(".card");
+const board=document.getElementById("board");
+const subject=document.getElementById("subject");
+const result=document.getElementById("selection");
+function update(){
+result.innerHTML="Class "+currentClass+" • "+board.value+" • "+subject.value+
+"<br>Your selected course is ready. Verified lessons and notes will be added here.";
+}
+cards.forEach(card=>card.addEventListener("click",()=>{
+cards.forEach(c=>c.classList.remove("active"));
+card.classList.add("active");
+currentClass=card.dataset.class;
+update();
+}));
+board.addEventListener("change",update);
+subject.addEventListener("change",update);
+document.getElementById("year").textContent=new Date().getFullYear();
+update();
+</script>
+</body>
+</html>
+  
